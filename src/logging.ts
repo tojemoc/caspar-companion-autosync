@@ -1,20 +1,20 @@
 // Native
-import * as path from 'path';
+import * as path from 'path'
 
 // Packages
-import * as winston from 'winston';
-import * as Transport from 'winston-transport';
+import * as winston from 'winston'
+import * as Transport from 'winston-transport'
 
-const logPath = path.join(process.cwd(), 'logs/output.log');
+const logPath = path.join(process.cwd(), 'logs/output.log')
 
 const defaultFormats = [
 	winston.format.timestamp(),
 	winston.format.splat(),
 	winston.format.prettyPrint(),
 	winston.format.printf((info: winston.Logform.TransformableInfo & { timestamp?: string }) => {
-		return `${info.timestamp} ${info.level}: ${String(info.message)}`;
+		return `${info.timestamp} ${info.level}: ${String(info.message)}`
 	}),
-];
+]
 
 const transports: Transport[] = [
 	new winston.transports.Console({
@@ -29,30 +29,30 @@ const transports: Transport[] = [
 		maxFiles: 16,
 		tailable: true,
 	}),
-];
+]
 
-transports.forEach(transport => {
-	transport.setMaxListeners(100);
-});
+transports.forEach((transport) => {
+	transport.setMaxListeners(100)
+})
 
 export function createLogger(label: string): winston.Logger {
-	const logger = winston.createLogger({ transports });
-	logger.setMaxListeners(100);
+	const logger = winston.createLogger({ transports })
+	logger.setMaxListeners(100)
 
 	const proxy = new Proxy(logger, {
 		get(target, propName) {
-			const prop = target[propName as keyof winston.Logger];
+			const prop = target[propName as keyof winston.Logger]
 			if (typeof prop === 'function') {
 				return (...args: any[]) => {
-					args[0] = `[${label}] ${args[0]}`;
+					args[0] = `[${label}] ${args[0]}`
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					return (prop as any)(...args);
-				};
+					return (prop as any)(...args)
+				}
 			}
 
-			return prop;
+			return prop
 		},
-	});
+	})
 
-	return proxy;
+	return proxy
 }

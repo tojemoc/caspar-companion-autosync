@@ -1,8 +1,8 @@
 // Native
-import * as fs from 'fs';
+import * as fs from 'fs'
 
 // Packages
-import * as convict from 'convict';
+import * as convict from 'convict'
 
 export const conf = convict({
 	companion_url: {
@@ -38,11 +38,11 @@ export const conf = convict({
 		arg: 'config',
 		default: './config.json',
 	},
-});
+})
 
 if (fs.existsSync(conf.get('config_path')) && process.env.NODE_ENV !== 'test') {
-	conf.loadFile(conf.get('config_path'));
+	conf.loadFile(conf.get('config_path'))
 }
 
 // Perform validation
-conf.validate({ allowed: 'strict' });
+conf.validate({ allowed: 'strict' })

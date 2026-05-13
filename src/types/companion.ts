@@ -5,44 +5,44 @@
  */
 interface GenericPage<T> {
 	// These refer to the Button numbers of this Page.
-	1: T;
-	2: T;
-	3: T;
-	4: T;
-	5: T;
-	6: T;
-	7: T;
-	8: T;
-	9: T;
-	10: T;
-	11: T;
-	12: T;
+	1: T
+	2: T
+	3: T
+	4: T
+	5: T
+	6: T
+	7: T
+	8: T
+	9: T
+	10: T
+	11: T
+	12: T
 }
 
 // A utility type for forcing code to specify only a single Page's worth of data.
 interface SinglePage<T> {
 	// This "1" refers to the page number.
-	1: GenericPage<T>;
+	1: GenericPage<T>
 }
 
 export interface Action {
-	id: string;
-	label: string;
-	instance: string;
-	action: string;
-	delay: string;
+	id: string
+	label: string
+	instance: string
+	action: string
+	delay: string
 	options?: {
-		[k: string]: number | string | boolean | undefined;
-	};
+		[k: string]: number | string | boolean | undefined
+	}
 }
 
 export interface ButtonConfig {
-	alignment: Alignment;
-	bgcolor: number;
-	color: number;
-	size: Size;
-	style: Style;
-	text: string;
+	alignment: Alignment
+	bgcolor: number
+	color: number
+	size: Size
+	style: Style
+	text: string
 }
 
 export const enum Alignment {
@@ -78,27 +78,27 @@ export const enum Style {
 }
 
 export interface Instance {
-	instance_type: string;
-	label: string;
-	import_to: string;
-	host?: string;
-	port?: string;
+	instance_type: string
+	label: string
+	import_to: string
+	host?: string
+	port?: string
 }
 
 export interface Events {
-	loadsave_import_page: (topage: number, frompage: 1, data: LoadSaveData) => void;
+	loadsave_import_page: (topage: number, frompage: 1, data: LoadSaveData) => void
 }
 
 export interface LoadSaveData {
-	actions: SinglePage<Action[]>;
-	config: SinglePage<ButtonConfig>;
+	actions: SinglePage<Action[]>
+	config: SinglePage<ButtonConfig>
 	page: {
-		1: { name: string };
-	};
+		1: { name: string }
+	}
 	instances: {
-		[k: string]: Instance;
-	};
-	type: 'full';
+		[k: string]: Instance
+	}
+	type: 'full'
 }
 
-export const PAGE_LENGTH = 12;
+export const PAGE_LENGTH = 12
