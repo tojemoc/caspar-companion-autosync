@@ -11,8 +11,8 @@ const defaultFormats = [
 	winston.format.timestamp(),
 	winston.format.splat(),
 	winston.format.prettyPrint(),
-	winston.format.printf(info => {
-		return `${info.timestamp} ${info.level}: ${info.message}`;
+	winston.format.printf((info: winston.Logform.TransformableInfo & { timestamp?: string }) => {
+		return `${info.timestamp} ${info.level}: ${String(info.message)}`;
 	}),
 ];
 

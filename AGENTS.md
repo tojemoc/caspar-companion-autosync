@@ -6,16 +6,16 @@ companion-caspar-configurator is a Node.js/TypeScript CLI tool that creates butt
 
 ### Development commands
 
-- **Install deps:** `npm ci`
-- **Lint:** `npm run lint` (runs prettier then eslint)
-- **Build:** `npm run build` (runs `tsc`)
-- **Test:** `npm run test` (lint + build)
-- **Start:** `npm start` (runs `ts-node --files --project tsconfig.json src/index.ts`)
+-   **Install deps:** `npm ci`
+-   **Lint:** `npm run lint` (runs prettier then eslint)
+-   **Build:** `npm run build` (runs `tsc`)
+-   **Test:** `npm run test` (lint + build)
+-   **Start:** `npm start` (runs `ts-node --files --project tsconfig.json src/index.ts`)
 
 ### Known issues
 
-- `npm run lint:eslint` fails with a pre-existing compatibility issue: the `@gamesdonequick/eslint-config` shared config uses an `accessor-pairs` rule option (`enforceForClassMembers`) not supported by the pinned ESLint 6.3.0. Prettier lint (`npm run lint:prettier`) and the TypeScript build both pass cleanly.
-- Use `npm ci` (not `npm install`) to avoid reformatting `package-lock.json`, which would cause prettier lint failures.
+-   `npm run lint:eslint` fails with a pre-existing compatibility issue: the `@gamesdonequick/eslint-config` shared config uses an `accessor-pairs` rule option (`enforceForClassMembers`) not supported by the pinned ESLint 6.3.0. Prettier lint (`npm run lint:prettier`) and the TypeScript build both pass cleanly.
+-   Use `npm ci` (not `npm install`) to avoid reformatting `package-lock.json`, which would cause prettier lint failures.
 
 ### Running the application
 
