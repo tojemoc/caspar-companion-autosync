@@ -1,50 +1,50 @@
 // Packages
-import * as shortid from 'shortid';
+import * as shortid from 'shortid'
 
 // Ours
-import { LoadSaveData, PAGE_LENGTH } from './types/companion';
-import { ClipMetadata, Ruleset } from './types/ruleset';
-import * as CompanionTypes from './types/companion';
+import { LoadSaveData, PAGE_LENGTH } from './types/companion'
+import { ClipMetadata, Ruleset } from './types/ruleset'
+import * as CompanionTypes from './types/companion'
 
 type ReturnType = Array<{
-	name: string;
-	data: Pick<LoadSaveData, 'actions' | 'config'>;
-}>;
+	name: string
+	data: Pick<LoadSaveData, 'actions' | 'config'>
+}>
 
 export function computePageIndicies(ruleset: Ruleset): number[] {
-	const pageIndicies: number[] = [];
-	ruleset.page_ranges.forEach(range => {
+	const pageIndicies: number[] = []
+	ruleset.page_ranges.forEach((range) => {
 		for (let i = range[0]; i <= range[1]; i++) {
-			pageIndicies.push(i);
+			pageIndicies.push(i)
 		}
-	});
-	return pageIndicies;
+	})
+	return pageIndicies
 }
 
 export function computePages(clips: ClipMetadata[], ruleset: Ruleset): ReturnType {
-	const pages: ReturnType = [];
-	ruleset.template_rules.forEach(rule => {
-		const actions: CompanionTypes.Action[][] = [];
-		const configs: CompanionTypes.ButtonConfig[] = [];
+	const pages: ReturnType = []
+	ruleset.template_rules.forEach((rule) => {
+		const actions: CompanionTypes.Action[][] = []
+		const configs: CompanionTypes.ButtonConfig[] = []
 		clips
-			.filter(clip => {
-				return clip.filename.toLowerCase().startsWith(rule.folder.toLowerCase());
+			.filter((clip) => {
+				return clip.filename.toLowerCase().startsWith(rule.folder.toLowerCase())
 			})
-			.forEach(clip => {
-				const actionsWithIds = rule.actions(clip).map(action => {
+			.forEach((clip) => {
+				const actionsWithIds = rule.actions(clip).map((action) => {
 					return {
 						id: shortid.generate(),
 						...action,
-					};
-				});
-				actions.push(actionsWithIds);
-				configs.push(rule.config(clip));
-			});
+					}
+				})
+				actions.push(actionsWithIds)
+				configs.push(rule.config(clip))
+			})
 
-		const numPages = Math.ceil(actions.length / PAGE_LENGTH);
-		let currentPageNum = 0;
+		const numPages = Math.ceil(actions.length / PAGE_LENGTH)
+		let currentPageNum = 0
 		for (let i = 0; i < actions.length; i += PAGE_LENGTH) {
-			currentPageNum++;
+			currentPageNum++
 			pages.push({
 				name: `${rule.folder} - ${currentPageNum}/${numPages}`,
 				data: {
@@ -81,8 +81,8 @@ export function computePages(clips: ClipMetadata[], ruleset: Ruleset): ReturnTyp
 						},
 					},
 				},
-			});
+			})
 		}
-	});
-	return pages;
+	})
+	return pages
 }
