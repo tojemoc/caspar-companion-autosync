@@ -61,7 +61,8 @@
     }
   },
   "lint-staged": {
-    "*.{ts,js,json,html}": ["biome format --write --no-errors-on-unmatched", "git add"],
+    "**/*.{ts,js,json,html}": ["biome format --write --no-errors-on-unmatched", "git add"],
+    "**/*.{ts,html,js}": ["eslint --fix", "git add"]
     "*.{ts,html,js}": ["eslint --fix", "git add"]
   },
   "publishConfig": {
